@@ -14,6 +14,11 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except'=>['login', 'register']]);
     }
 
+    public function index()
+    {
+        return User::all();
+    }
+
     public function createNewToken($token)
     {
         return response()->json([
@@ -68,7 +73,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return response()->json(['message' => 'Success']);
+        return response()->json(['message' => 'Logout Success']);
     }
 
     public function userProfile() {

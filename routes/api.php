@@ -24,6 +24,7 @@ Route::group([
        Route::post('/register', [AuthController::class, 'register']);
        Route::post('/logout', [AuthController::class, 'logout']);
        Route::get('/userLogin', [AuthController::class, 'userProfile']);
+       Route::get('/users', [AuthController::class, 'index']);
    });
 
    Route::prefix('post')->group(function (){
