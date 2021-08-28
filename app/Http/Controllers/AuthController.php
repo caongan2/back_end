@@ -76,7 +76,14 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logout Success']);
     }
 
-    public function userProfile() {
+    public function userPrzfile() {
         return response()->json(auth()->user());
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['message' => 'ok ok']);
     }
 }

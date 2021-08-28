@@ -17,18 +17,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'middleware' => 'api'
-], function ($router){
+], function ($router) {
 
-   Route::prefix('auth')->group(function (){
-       Route::post('/login', [AuthController::class, 'login']);
-       Route::post('/register', [AuthController::class, 'register']);
-       Route::post('/logout', [AuthController::class, 'logout']);
-       Route::get('/userLogin', [AuthController::class, 'userProfile']);
-       Route::get('/users', [AuthController::class, 'index']);
-   });
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/userLogin', [AuthController::class, 'userProfile']);
+        Route::get('/users', [AuthController::class, 'index']);
+        Route::post('/delete/{id}', [AuthController::class, 'destroy']);
+    });
 
-   Route::prefix('post')->group(function (){
+    Route::prefix('post')->group(function () {
+        Route::post('add');
+        Route::post('delete/{id}');
+        Route::post('edit/{id}');
+        Route::post('comment/{id}');
+        Route::post('addComment');
+    });
 
-   });
 
 });
