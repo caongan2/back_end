@@ -111,10 +111,8 @@ class AuthController extends Controller
         return response()->json(['message' => 'ok ok']);
     }
 
-
-    public function search(Request $request)
+    public function show($id)
     {
-        $user = User::where('name', 'LIKE', '%' . $request->value . '%')->get();
-        return response()->json($user);
+        return User::find($id);
     }
 }

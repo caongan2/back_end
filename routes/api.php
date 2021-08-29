@@ -26,6 +26,7 @@ Route::group([
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/userLogin', [AuthController::class, 'userProfile']);
         Route::get('/users', [AuthController::class, 'index']);
+        Route::get('/user/{id}', [AuthController::class, 'show']);
         Route::delete('/delete/{id}', [AuthController::class, 'destroy']);
         Route::get('search', [AuthController::class, 'search']);
     });
