@@ -74,7 +74,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email'
         ]);
 
         if ($validator->fails()) {
@@ -83,11 +83,10 @@ class AuthController extends Controller
 
         $user = User::update(array_merge(
             $validator->validated(),
-            ['password' => Hash::make($request->password)]
         ));
 
         return response()->json([
-            'message' => 'User successfully registered',
+            'message' => 'User successfully update',
             'user' => $user
         ]);
     }
