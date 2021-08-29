@@ -70,7 +70,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -81,7 +81,8 @@ class AuthController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $user = User::update(array_merge(
+        $user = User::find($id);
+        $user->update(array_merge(
             $validator->validated(),
         ));
 
