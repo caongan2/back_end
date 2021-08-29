@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except'=>['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function index()
@@ -24,7 +24,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL()*60,
+            'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
     }
@@ -40,7 +40,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 'Email hoặc mật khẩu không chính xác');
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
+        if (!$token = auth()->attempt($validator->validated())) {
             return response()->json(['error' => 'Undefined'], 401);
         }
 
@@ -55,7 +55,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:5'
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
 
@@ -76,7 +76,8 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logout Success']);
     }
 
-    public function userPrzfile() {
+    public function userProfile()
+    {
         return response()->json(auth()->user());
     }
 
@@ -85,5 +86,13 @@ class AuthController extends Controller
         $user = User::find($id);
         $user->delete();
         return response()->json(['message' => 'ok ok']);
+    }
+
+
+    public function search(Request $request)
+    {
+        $text = $request->name;
+        $user = User::where('name', 'LIKE', '%' . $text . '%')->get()->first();
+        return response()->json($user);
     }
 }

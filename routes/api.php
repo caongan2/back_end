@@ -26,6 +26,7 @@ Route::group([
         Route::get('/userLogin', [AuthController::class, 'userProfile']);
         Route::get('/users', [AuthController::class, 'index']);
         Route::post('/delete/{id}', [AuthController::class, 'destroy']);
+        Route::get('search', [AuthController::class, 'search']);
     });
 
     Route::prefix('post')->group(function () {
