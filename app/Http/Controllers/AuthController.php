@@ -91,8 +91,7 @@ class AuthController extends Controller
 
     public function search(Request $request)
     {
-        $text = $request->name;
-        $user = User::where('name', 'LIKE', '%' . $text . '%')->get()->first();
+        $user = User::where('name', 'LIKE', '%' . $request->value . '%')->get();
         return response()->json($user);
     }
 }
