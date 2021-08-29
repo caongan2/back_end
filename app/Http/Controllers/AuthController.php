@@ -70,6 +70,29 @@ class AuthController extends Controller
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|min:5'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        $user = User::update(array_merge(
+            $validator->validated(),
+            ['password' => Hash::make($request->password)]
+        ));
+
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $user
+        ]);
+    }
+
     public function logout()
     {
         auth()->logout();
